@@ -12,12 +12,13 @@ struct ContentView: View {
     private let strokeStyle = StrokeStyle(lineWidth: 4, lineCap: .round, lineJoin: .round)
     private let backColor = Color(red: 0.75, green: 0.67, blue: 0.88)
     private let strokeColor = Color(red: 0.6, green: 0.25, blue: 0.6)
-    private let duration = 5.0
 
     private let cornerRadius = 0.25
     private let centerRadius = 0.4
     private let cornerOffset = 0.5 - 0.25 / 2
     private let leafsCount = 10
+    private let stepByStep = false
+    private var duration: TimeInterval { stepByStep ? 5.0 : 2.5 }
 
     @State private var progress: DrawingProgress = .zero
 
@@ -54,7 +55,7 @@ struct ContentView: View {
             TB.Continue.Line(to: topRightCorner.p0.mirrored())
             TB.Crossing(.bottom, .top, .bottom, .top)
             TB.Repeat.Mirrored()
-            TB.Timestamp(0.5)
+            centerFinish
         }
 
         CB.RotatedThread(source: "Diagonal1", name: "Diagonal2", angle: .hpi)
@@ -67,12 +68,20 @@ struct ContentView: View {
                 .translated(x: 0, y: -1 * (0.5 - centerRadius / 2))
 
             TB.Thread.Name("OutLoop")
-            TB.Timestamp(0.5)
+            outerStart
             TB.Thread.Start(curve: topCorner)
             TB.Continue.Line(to: topCorner.p0.rotated(angle: -.hpi))
             TB.Repeat.Rotated(angle: -.hpi)
             TB.Repeat.Mirrored()
         }
+    }
+
+    var centerFinish: TB.Timestamp {
+        stepByStep ? .init(0.5) : .init(1)
+    }
+
+    var outerStart: TB.Timestamp {
+        stepByStep ? .init(0.5) : .init(0)
     }
 }
 
