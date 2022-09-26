@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-enum DemoError: Error {
-    case runtimeError(String)
+enum Symbol {
+    case flower, celtic
 }
 
 struct ContentView: View {
@@ -21,8 +21,18 @@ struct ContentView: View {
     private let centerRadius = 0.4
     private let cornerOffset = 0.5 - 0.25 / 2
     private let leafsCount = 10
-    private let stepByStep = false
-    private var duration: TimeInterval { stepByStep ? 5.0 : 2.5 }
+    private let stepByStep = true
+    private let sharps = true
+    private var symbol = Symbol.celtic
+
+    private var duration: TimeInterval {
+        switch symbol {
+        case .celtic:
+            return stepByStep ? 5.0 : 2.5
+        case .flower:
+            return 6.0
+        }
+    }
 
     @State private var progress: DrawingProgress = .zero
 
@@ -47,46 +57,59 @@ struct ContentView: View {
     }
 
     @DrawgramBuilder var curves: [DrawableCurve] {
-        CB.AddThread {
-            let topRightCorner = BezierCurve
-                .arc(from: .pi * 0.75, to: .pi * -0.25, radius: 0.5)
-                .scaled(x: cornerRadius, y: cornerRadius)
-                .translated(x: cornerOffset, y: -1 * cornerOffset)
-                .smoothed(mult1: 1.5, mult2: 1.5)
+        switch symbol {
+        case .flower:
+            DB.AddThread {
+                let leafLeft = BezierCurve(x0: 0, y0: 0, x1: -0.15, y1: -0.1, x2: -0.25, y2: -0.3, x3: 0, y3: -0.5)
+                
+                TB.Thread.Start(curve: leafLeft)
+                TB.Repeat.SelfMirrored(reversion: true)
+                for _ in 1..<leafsCount {
+                    TB.Repeat.Rotated(last: 2, angle: -.dpi / CGFloat(leafsCount))
+                }
+            }
+        case .celtic:
+            DB.AddThread {
+                let topRightCorner = BezierCurve
+                    .arc(from: .pi * 0.75, to: .pi * -0.25, radius: 0.5)
+                    .scaled(x: cornerRadius, y: cornerRadius)
+                    .translated(x: cornerOffset, y: -1 * cornerOffset)
+                    .smoothed(mult1: 1.5, mult2: 1.5)
 
-            throw DemoError.runtimeError("Demo error")
-            TB.Thread.Name("Diagonal1")
-            TB.Thread.Start(curve: topRightCorner)
-            TB.Continue.Line(to: topRightCorner.p0.mirrored())
-            TB.Crossing(.bottom, .top, .bottom, .top)
-            TB.Repeat.Mirrored()
-            centerFinish
+                TB.Thread.Name("Diagonal1")
+    //            topRightCorner
+    //            BezierCurve.line(from: topRightCorner.p3, to: topRightCorner.p0.mirrored())
+                TB.Thread.Start(curve: topRightCorner)
+                TB.Continue.Line(to: topRightCorner.p0.mirrored())
+                TB.Crossing(.bottom, .top, .bottom, .top)
+                TB.Repeat.Mirrored()
+                if stepByStep { TB.Timestamp(0.5) }
+            }
+
+            DB.RotatedThread(source: "Diagonal1", name: "Diagonal2", angle: .hpi)
+            DB.InverseThreadCrossing(name: "Diagonal2")
+
+            DB.AddThread {
+                let topCorner = BezierCurve
+                    .arc(from: .pi * 0.75, to: .pi * 0.25, radius: 0.5)
+                    .scaled(x: centerRadius, y: centerRadius)
+                    .translated(x: 0, y: -1 * (0.5 - centerRadius / 2))
+
+                TB.Thread.Name("OutLoop")
+                if stepByStep { TB.Timestamp(0.5) }
+                TB.Thread.Start(curve: topCorner)
+
+                if sharps {
+                    TB.Continue.Line(to: topCorner.p0.rotated(angle: .hpi))
+                    TB.Repeat.Rotated(angle: .hpi)
+                } else {
+                    TB.Continue.Line(to: topCorner.p0.rotated(angle: -.hpi))
+                    TB.Repeat.Rotated(angle: -.hpi)
+                }
+
+                TB.Repeat.Mirrored()
+            }
         }
-
-        CB.RotatedThread(source: "Diagonal1", name: "Diagonal2", angle: .hpi)
-        CB.InverseThreadCrossing(name: "Diagonal2")
-
-        CB.AddThread {
-            let topCorner = BezierCurve
-                .arc(from: .pi * 0.75, to: .pi * 0.25, radius: 0.5)
-                .scaled(x: centerRadius, y: centerRadius)
-                .translated(x: 0, y: -1 * (0.5 - centerRadius / 2))
-
-            TB.Thread.Name("OutLoop")
-            outerStart
-            TB.Thread.Start(curve: topCorner)
-            TB.Continue.Line(to: topCorner.p0.rotated(angle: -.hpi))
-            TB.Repeat.Rotated(angle: -.hpi)
-            TB.Repeat.Mirrored()
-        }
-    }
-
-    var centerFinish: TB.Timestamp {
-        stepByStep ? .init(0.5) : .init(1)
-    }
-
-    var outerStart: TB.Timestamp {
-        stepByStep ? .init(0.5) : .init(0)
     }
 }
 

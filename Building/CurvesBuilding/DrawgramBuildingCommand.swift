@@ -11,7 +11,17 @@ protocol DrawgramBuildingCommand {
     func execute(in context: inout DrawgramBuildingContext)
 }
 
-struct CB {
+struct DB {
+    struct Group: DrawgramBuildingCommand {
+        static let empty = Group(subcommands: [])
+
+        let subcommands: [DrawgramBuildingCommand]
+
+        func execute(in context: inout DrawgramBuildingContext) {
+            subcommands.forEach { $0.execute(in: &context) }
+        }
+    }
+
     struct AddThread: DrawgramBuildingCommand {
         @CurvesThreadBuilder let builder: () throws -> CurvesThread
 

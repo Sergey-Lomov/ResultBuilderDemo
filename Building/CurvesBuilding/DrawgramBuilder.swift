@@ -11,7 +11,11 @@ import Foundation
 
     static func buildBlock() -> [DrawableCurve] { [] }
 
-    static func buildBlock(_ commands: DrawgramBuildingCommand...) -> [DrawableCurve] {
+    static func buildBlock(_ commands: DrawgramBuildingCommand...) -> DrawgramBuildingCommand {
+        DB.Group(subcommands: commands)
+    }
+
+    static func buildFinalResult(_ commands: DrawgramBuildingCommand...) -> [DrawableCurve] {
         var context = DrawgramBuildingContext()
         commands.forEach { $0.execute(in: &context) }
         
@@ -20,5 +24,13 @@ import Foundation
         return threadCurves.map {
             DrawableCurve(curve: $0.curve, startAt: $0.startAt, finishAt: $0.finishAt)
         }
+    }
+
+    static func buildEither(first: DrawgramBuildingCommand) -> DrawgramBuildingCommand {
+        return first
+    }
+
+    static func buildEither(second: DrawgramBuildingCommand) -> DrawgramBuildingCommand {
+        return second
     }
 }

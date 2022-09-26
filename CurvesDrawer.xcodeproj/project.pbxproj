@@ -102,9 +102,9 @@
 		6762848F28E1B332000C073A /* CurvesBuilding */ = {
 			isa = PBXGroup;
 			children = (
-				6762849028E1B332000C073A /* DrawgramBuildingCommand.swift */,
 				6762849128E1B332000C073A /* DrawgramBuilder.swift */,
 				6762849228E1B332000C073A /* DrawgramBuildingContext.swift */,
+				6762849028E1B332000C073A /* DrawgramBuildingCommand.swift */,
 			);
 			path = CurvesBuilding;
 			sourceTree = "<group>";
