@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+enum DemoError: Error {
+    case runtimeError(String)
+}
+
 struct ContentView: View {
 
     private let strokeStyle = StrokeStyle(lineWidth: 4, lineCap: .round, lineJoin: .round)
@@ -50,6 +54,7 @@ struct ContentView: View {
                 .translated(x: cornerOffset, y: -1 * cornerOffset)
                 .smoothed(mult1: 1.5, mult2: 1.5)
 
+            throw DemoError.runtimeError("Demo error")
             TB.Thread.Name("Diagonal1")
             TB.Thread.Start(curve: topRightCorner)
             TB.Continue.Line(to: topRightCorner.p0.mirrored())

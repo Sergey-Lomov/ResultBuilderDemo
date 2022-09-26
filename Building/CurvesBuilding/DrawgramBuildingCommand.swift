@@ -13,10 +13,11 @@ protocol DrawgramBuildingCommand {
 
 struct CB {
     struct AddThread: DrawgramBuildingCommand {
-        @CurvesThreadBuilder let builder: () -> CurvesThread
+        @CurvesThreadBuilder let builder: () throws -> CurvesThread
 
         func execute(in context: inout DrawgramBuildingContext) {
-            context.addThread(builder())
+            guard let thread = try? builder() else { return }
+            context.addThread(thread)
         }
     }
 
