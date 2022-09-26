@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6762849828E1B332000C073A /* DrawgramBuildingCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6762849028E1B332000C073A /* DrawgramBuildingCommand.swift */; };
+		6762849928E1B332000C073A /* DrawgramBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6762849128E1B332000C073A /* DrawgramBuilder.swift */; };
+		6762849A28E1B332000C073A /* DrawgramBuildingContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6762849228E1B332000C073A /* DrawgramBuildingContext.swift */; };
+		6762849B28E1B332000C073A /* CurvesThreadBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6762849428E1B332000C073A /* CurvesThreadBuilder.swift */; };
+		6762849C28E1B332000C073A /* CurvesThreadBuildingContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6762849528E1B332000C073A /* CurvesThreadBuildingContext.swift */; };
+		6762849D28E1B332000C073A /* CurvesThreadBuildingCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6762849628E1B332000C073A /* CurvesThreadBuildingCommand.swift */; };
+		6762849E28E1B332000C073A /* CurvesThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6762849728E1B332000C073A /* CurvesThread.swift */; };
 		67C3906528CDE16D00784D68 /* CurvesDrawerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C3906428CDE16D00784D68 /* CurvesDrawerApp.swift */; };
 		67C3906728CDE16D00784D68 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C3906628CDE16D00784D68 /* ContentView.swift */; };
 		67C3906928CDE16F00784D68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67C3906828CDE16F00784D68 /* Assets.xcassets */; };
@@ -36,6 +43,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6762849028E1B332000C073A /* DrawgramBuildingCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawgramBuildingCommand.swift; sourceTree = "<group>"; };
+		6762849128E1B332000C073A /* DrawgramBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawgramBuilder.swift; sourceTree = "<group>"; };
+		6762849228E1B332000C073A /* DrawgramBuildingContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawgramBuildingContext.swift; sourceTree = "<group>"; };
+		6762849428E1B332000C073A /* CurvesThreadBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurvesThreadBuilder.swift; sourceTree = "<group>"; };
+		6762849528E1B332000C073A /* CurvesThreadBuildingContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurvesThreadBuildingContext.swift; sourceTree = "<group>"; };
+		6762849628E1B332000C073A /* CurvesThreadBuildingCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurvesThreadBuildingCommand.swift; sourceTree = "<group>"; };
+		6762849728E1B332000C073A /* CurvesThread.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurvesThread.swift; sourceTree = "<group>"; };
 		67C3906128CDE16D00784D68 /* CurvesDrawer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurvesDrawer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67C3906428CDE16D00784D68 /* CurvesDrawerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurvesDrawerApp.swift; sourceTree = "<group>"; };
 		67C3906628CDE16D00784D68 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -76,9 +90,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6762848E28E1B332000C073A /* Building */ = {
+			isa = PBXGroup;
+			children = (
+				6762848F28E1B332000C073A /* CurvesBuilding */,
+				6762849328E1B332000C073A /* ThreadsBuilding */,
+			);
+			path = Building;
+			sourceTree = "<group>";
+		};
+		6762848F28E1B332000C073A /* CurvesBuilding */ = {
+			isa = PBXGroup;
+			children = (
+				6762849028E1B332000C073A /* DrawgramBuildingCommand.swift */,
+				6762849128E1B332000C073A /* DrawgramBuilder.swift */,
+				6762849228E1B332000C073A /* DrawgramBuildingContext.swift */,
+			);
+			path = CurvesBuilding;
+			sourceTree = "<group>";
+		};
+		6762849328E1B332000C073A /* ThreadsBuilding */ = {
+			isa = PBXGroup;
+			children = (
+				6762849428E1B332000C073A /* CurvesThreadBuilder.swift */,
+				6762849528E1B332000C073A /* CurvesThreadBuildingContext.swift */,
+				6762849628E1B332000C073A /* CurvesThreadBuildingCommand.swift */,
+				6762849728E1B332000C073A /* CurvesThread.swift */,
+			);
+			path = ThreadsBuilding;
+			sourceTree = "<group>";
+		};
 		67C3905828CDE16D00784D68 = {
 			isa = PBXGroup;
 			children = (
+				6762848E28E1B332000C073A /* Building */,
 				67C3909C28CF939500784D68 /* Modifiers */,
 				67C3908F28CDF06E00784D68 /* Views */,
 				67C3908828CDF02E00784D68 /* Utils */,
@@ -243,25 +288,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6762849E28E1B332000C073A /* CurvesThread.swift in Sources */,
 				67C3909E28CF93A700784D68 /* DrawingProgressModifier.swift in Sources */,
+				6762849C28E1B332000C073A /* CurvesThreadBuildingContext.swift in Sources */,
 				67C3907728CDEF9000784D68 /* ComplexCurve.swift in Sources */,
 				67C3906728CDE16D00784D68 /* ContentView.swift in Sources */,
 				67C3907C28CDEFCE00784D68 /* CGFloat.swift in Sources */,
 				67C3906528CDE16D00784D68 /* CurvesDrawerApp.swift in Sources */,
 				67C3907628CDEF9000784D68 /* BezierCurve.swift in Sources */,
+				6762849A28E1B332000C073A /* DrawgramBuildingContext.swift in Sources */,
 				67C3909B28CF2BE200784D68 /* View.swift in Sources */,
 				67C3908C28CDF03F00784D68 /* IdEqutable.swift in Sources */,
 				67C3907A28CDEFB000784D68 /* Path.swift in Sources */,
 				67C3908B28CDF03F00784D68 /* Closures.swift in Sources */,
 				67C3909128CF2AF400784D68 /* DrawableCurvesView.swift in Sources */,
+				6762849D28E1B332000C073A /* CurvesThreadBuildingCommand.swift in Sources */,
 				67C3909528CF2B3300784D68 /* DrawableCurve.swift in Sources */,
 				67C3907328CDEF7800784D68 /* ComplexCurveShape.swift in Sources */,
 				67C3908128CDEFE500784D68 /* CGSize.swift in Sources */,
+				6762849B28E1B332000C073A /* CurvesThreadBuilder.swift in Sources */,
 				67C3908228CDEFE500784D68 /* CGPoint.swift in Sources */,
 				67C3909728CF2B9200784D68 /* Comparable.swift in Sources */,
 				67C3908728CDF01E00784D68 /* Array.swift in Sources */,
 				67C3908528CDF00300784D68 /* Line.swift in Sources */,
+				6762849828E1B332000C073A /* DrawgramBuildingCommand.swift in Sources */,
 				67C390A028D0ECB500784D68 /* LineSegment.swift in Sources */,
+				6762849928E1B332000C073A /* DrawgramBuilder.swift in Sources */,
 				67C3909928CF2BB200784D68 /* CenteredGeometryReader.swift in Sources */,
 				67C3908028CDEFE500784D68 /* CGRect.swift in Sources */,
 				67FFE93D28D9EB2C0002B4DF /* ViewBuilder.swift in Sources */,
