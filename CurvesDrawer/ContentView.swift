@@ -65,7 +65,7 @@ struct ContentView: View {
         }
     }
 
-    @DrawgramBuilder func flower() -> [DrawableCurve] {
+    @DrawgramIntermediateBuilder func flower() -> DrawgramBuildingCommand {
         DB.AddThread {
             let leafLeft = BezierCurve(x0: 0, y0: 0, x1: -0.15, y1: -0.1, x2: -0.25, y2: -0.3, x3: 0, y3: -0.5)
 
@@ -77,7 +77,7 @@ struct ContentView: View {
         }
     }
 
-    @DrawgramBuilder func celtic() -> [DrawableCurve] {
+    @DrawgramIntermediateBuilder func celtic() -> DrawgramBuildingCommand {
         DB.AddThread {
             let topRightCorner = BezierCurve
                 .arc(from: .pi * 0.75, to: .pi * -0.25, radius: 0.5)
