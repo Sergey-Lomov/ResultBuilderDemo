@@ -36,26 +36,14 @@ struct ContentView: View {
 
     @State private var progress: DrawingProgress = .zero
 
+    var maybeText: Text?
+
     var body: some View {
         let opacity: CGFloat = progress == .zero ? 0 : 1
         CenteredGeometryReader {
             backColor
                 .ignoresSafeArea(.all)
-            VStack {
-                TupleView((
-                    Text("1"),
-                    Text("2"),
-                    Text("3"),
-                    Text("4"),
-                    Text("5"),
-                    Text("6"),
-                    Text("7"),
-                    Text("8"),
-                    Text("9"),
-                    Text("10"),
-                    Text("11")
-                ))
-            }
+            maybeText
             DrawableCurvesView(elements: curves, undercolor: backColor)
                 .opacity(opacity)
                 .animation(nil, value: opacity)
